@@ -49,7 +49,7 @@ We used *git clone* to clone the GitHub projects and extracted commit comments (
 		We trained a decision tree classifier using sklearn module with entropy as splitting criterion. 
 		The main script is shown in buildingDecisionTree.ipynb
 		
-## **3. Thrashing Frequency Measure**
+## **3. Code Thrashing Frequency Measure**
 
 		We considered the following three cases as thrashing:
 		
