@@ -18,7 +18,7 @@ We used *git clone* to clone the GitHub projects and extracted commit comments (
 		0 means the comment is useless;
 		NR means Not Rated;
 
-- **The main script for doing the feature extraction manually for the comment titles is shown in featureExtraction.ipynb**
+- **The feature extraction script for the comment titles is shown in featureExtraction.ipynb**
 
 - **Name entity replacement**
 
