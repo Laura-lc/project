@@ -1,7 +1,7 @@
 # Documentation
 
-Comment expressiveness measure
+1.	Data
+We used git clone to clone the GitHub projects and extracted commit comments (both tittles and bodies) from GitHub using following script:
 
- a) The 400 rated comment titles are shown in 400RatedCommentTitles.xlsx
+git log --after="2020-02-20" --before="2020-08-20" --pretty=format:"CommitHash: %H AuthorDate: %ai CommitterDate: %ci SubjectTitleLine: %s BodyMessage: %b" > fullCommitMessages.txt
 
- b) The script for doing the feature extraction manually for the comment titles is shown in featureExtraction.ipynb
