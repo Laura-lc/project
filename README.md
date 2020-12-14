@@ -2,9 +2,11 @@
 
 ## **1. Data**
 
-We used *git clone* to clone the GitHub projects and extracted commit comments (both tittles and bodies) from GitHub using following script:
+We used *git clone* to clone the GitHub projects and extracted commit comments (both tittles and bodies) and code log from GitHub using following scripts respectively:
 
 *git log --after="2020-02-20" --before="2020-08-20" --pretty=format:"CommitHash: %H AuthorDate: %ai CommitterDate: %ci SubjectTitleLine: %s BodyMessage: %b" > fullCommitMessages.txt*
+
+*git log -p --reverse --after="2020-02-20" --before="2020-08-20"> "$patch_output_path/${arr[-1]}.txt"*
 
 ## **2. Comment Expressiveness Measure**
 
