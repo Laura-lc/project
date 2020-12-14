@@ -24,7 +24,7 @@ We used *git clone* to clone the GitHub projects and extracted commit comments (
 
 		We defined five standard terms: FILE, VARIABLE, FUNCTION, CONSTANT, and 
 		BUG_NUMBER, then we identified the file/function/variable/constant/bug number 
-		and replaced them with above standard terms respectively.
+		from the comments and replaced them with above standard terms respectively.
 
 		The function names and variable names replacement scripts for each programming 
 		group are shown in the following files:
