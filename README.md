@@ -11,13 +11,9 @@ We used *git clone* to clone the GitHub projects and extracted commit comments (
 - **The 400 rated comment titles are shown in 400RatedCommentTitles.xlsx.**
 
 		3 means the comment is very useful and informative;
-
 		2 means the comment is somewhat useful and informative;
-
 		1 means the comment is slightly useful and informative;
-
 		0 means the comment is useless.
-
 		NR means Not Rated
 
 - **The main script for doing the feature extraction manually for the comment titles is shown in featureExtraction.ipynb**
@@ -32,38 +28,31 @@ We used *git clone* to clone the GitHub projects and extracted commit comments (
 		group are shown in the following files:
 
 			a) FunVarReplacementForPython.ipynb
-
 			b) FunVarReplacementForC.ipynb
-
 			c) FunVarReplacementForJavaScript.ipynb
-
 			d) FunVarReplacementForJava.ipynb
 
 		The file names, constant names and bug numbers replacement scripts for all projects 
 		(all four programming language projects) are shown in the following files:
 
 			a) replaceFileNames.ipynb
-
 			b) replaceConstants.ipynb
-
 			c) replaceBugNumbers.ipynb
 
 		To do the name entity replacement for each language group, the order to run the scripts 
 		should be: FunVarReplacement – replaceFileNames – replaceConstants – replaceBugNumbers
 
-- **Decision Tree**
+- **Decision tree**
 
 		We trained a decision tree classifier using sklearn module with entropy as splitting criterion. 
 		The main script is shown in buildingDecisionTree.ipynb
 		
-- **Thrashing Frequency Measure**
+- **Thrashing frequency measure**
 
 		We considered the following three cases as thrashing:
 		
 		a)	Line removed then added back within N successive commits;
-		
 		b)	Line added then removed within N successive commits;
-		
 		c)	Repeated modifications to the same region of code within N successive commits;
 		
 		After the code diff for each project is extracted, the sub-metric a) and b) are calculated 
