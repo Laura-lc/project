@@ -24,9 +24,11 @@ We used *git clone* to clone the GitHub projects and extracted commit comments (
 
 - **Name entity replacement**
 
-		We defined five standard terms: FILE, VARIABLE, FUNCTION, CONSTANT, and BUG_NUMBER, then we identified the file/function/variable/constant/bug number and replaced them with above standard terms respectively.
+		We defined five standard terms: FILE, VARIABLE, FUNCTION, CONSTANT, and BUG_NUMBER, then we identified the 
+		file/function/variable/constant/bug number and replaced them with above standard terms respectively.
 
-		The function names and variable names replacement scripts for each programming group are shown in the following files respectively:
+		The function names and variable names replacement scripts for each programming group are shown in the 
+		following files:
 
 			a) FunVarReplacementForPython.ipynb
 
@@ -36,7 +38,8 @@ We used *git clone* to clone the GitHub projects and extracted commit comments (
 
 			d) FunVarReplacementForJava.ipynb
 
-		The file names, constant names and bug numbers replacement scripts for all projects (all four programming language projects) are shown in the following files respectively:
+		The file names, constant names and bug numbers replacement scripts for all projects 
+		(all four programming language projects) are shown in the following files:
 
 			a) replaceFileNames.ipynb
 
@@ -44,11 +47,13 @@ We used *git clone* to clone the GitHub projects and extracted commit comments (
 
 			c) replaceBugNumbers.ipynb
 
-		To do the name entity replacement for each language group, the order to run the scripts should be: FunVarReplacement – replaceFileNames – replaceConstants – replaceBugNumbers
+		To do the name entity replacement for each language group, the order to run the scripts should be: 
+		FunVarReplacement – replaceFileNames – replaceConstants – replaceBugNumbers
 
 - **Decision Tree**
 
-		We trained a decision tree classifier using sklearn module with entropy as splitting criterion. The main script is shown in buildingDecisionTree.ipynb
+		We trained a decision tree classifier using sklearn module with entropy as splitting criterion. 
+		The main script is shown in buildingDecisionTree.ipynb
 		
 - **Thrashing Frequency Measure**
 
@@ -60,8 +65,8 @@ We used *git clone* to clone the GitHub projects and extracted commit comments (
 		
 		c)	Repeated modifications to the same region of code within N successive commits;
 		
-		After the code diff for each project is extracted, the sub-metric a) and b) are calculated in script thrashingFrequencySubMetricab.ipynb, sub-metric c) is calculated in 
-		script thrashingFrequencySubMetricc.ipynb.
+		After the code diff for each project is extracted, the sub-metric a) and b) are calculated in script 
+		thrashingFrequencySubMetricab.ipynb, sub-metric c) is calculated in script thrashingFrequencySubMetricc.ipynb.
 
 
 		
