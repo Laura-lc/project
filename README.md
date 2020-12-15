@@ -282,7 +282,8 @@
 		For sub-metric c), 
 		
 			- looked at the line number ranges in three successive commits (commit n, commit n+1, 
-			  and commit n+2). If there is 50% overlap or more in these ranges, 
+			  and commit n+2). If there is 50% overlap or more in these ranges, we say it is an 
+			  evidence of sub-metric c).
 
 			- the scripts are available in thrashingFrequencySubMetricc.ipynb, with N = 3.
 
