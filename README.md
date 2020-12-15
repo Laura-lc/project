@@ -176,7 +176,9 @@
 		We measure the word frequency rank for both comment tiles and comment 
 		tiles plus bodies. That is, we have two word frequency rank metrics here.
 		
-		we referred to a word frequency corpus, which is derived from Google’s N-gram corpus.
+		We referred to a word frequency corpus, someone derived it from Google’s N-gram corpus.
+		http://storage.googleapis.com/books/ngrams/books/datasetsv2.html
+		https://raw.githubusercontent.com/earonesty/dotfiles/master/frequent.js
 		
 		a)   First, we sorted all the words in the corpus by their frequency, 
 		in descending order by frequency. This is done using scripts in 
@@ -221,27 +223,69 @@
 
 
 
-
 ## **3.  Code Quality Metrics**
+		
+		We first wrote Python scripts to detect the instances of thrashing, then used an online tool, 
+		CommitGuru (CG), to help to calculate the other three code quality metrics: average commit size, 
+		percentage of risky commits, and distribution of modified code.
+		
+		To calculate metrics with CG, you must provide the Git repository URL. Then CG will start processing 
+		the repository. When CG has finished processing a repository, a CSV file containing all of the commits 
+		for the entire project life cycle and a set of CG metrics values for each commit will be returned. 
+		
+		The CommitGuru tool is available on: http://commit.guru/
+		
+		Their papers have detailed descriptions on CG tool.
+		[1] C. Rosen, B. Grawi, and E. Shihab, "Commit guru: analytics and risk prediction of software commits.
+		" In Proceedings of the 2015 10th Joint Meeting on Foundations of Software Engineering, New York, pp. 966-
+		969. 2015.
+		[2] Y. Kamei, E. Shihab, B. Adams, A. E. Hassan, A. Mockus, A. Sinha, and N. Ubayashi, “A large-scale 
+		empirical study of Just-in-time quality assurance”, IEEE Transactions on Software Engineering, vol. 
+		39, no. 6, pp. 757-773, September 2019.
+
 
 ### **3.1  Thrashing Frequency**
-
-		We considered the following three cases as thrashing:
+		
+		We first analyzed the patch output to create a diff output file for each project for later thrashing 
+		frequency calculation. The purpose of this step is to remove the unnecessary information and 
+		transform all lines into a "canonical" form by removing tabs and spaces and converting everything 
+		to lower case, hence, making the diff file more clear and easier to analyze. This was done with the 
+		script 
+		
+		Then we analyzed the code diffs in a moving time window N, and considered the following three cases 
+		as thrashing:
 		
 		a)	Line removed then added back within N successive commits;
 		b)	Line added then removed within N successive commits;
 		c)	Repeated modifications to the same region of code within N successive commits;
 		
-		After the code diff for each project is extracted, the sub-metric a) and b) are calculated 
-		using script thrashingFrequencySubMetricab.ipynb, sub-metric c) is calculated using script 
-		thrashingFrequencySubMetricc.ipynb.
+		For sub-metric a) and b), we matched code lines removed in commit n against lines added in commit n+1 
+		and lines added in commit n against lines removed in commit n+1. Also, we matched code lines removed in 
+		commit n against lines added in commit n+2 and lines added in commit n against lines removed in commit 
+		n+2. This would be the process if our window was three successive commits. The scripts are available 
+		in thrashingFrequencySubMetricab.ipynb, with N = 3.
+		
+		For sub-metric c), we looked at the line number ranges in three successive commits (commit n, commit n+1, 
+		and commit n+2). If there is 50% overlap or more in these ranges, we considered this to be repeated 
+		modifications to the same region of code. The scripts are available in thrashingFrequencySubMetricc.ipynb,
+		, with N = 3.
 
-
-
-
+		The three submetrics were calculated separately. For each project, we calculated normalized the trashing 
+		metrics by calculating a ratio between the number of thrashing events and the number of commits. 
+		A ceiling value of 1.0 was applied to the normalized sub-metric.
+		
+		We dropped the sub-metric c), because this measure had very little variability across projects.
+		We combined sub-metrics a) and b) by averaging the normalized values, because the two sub-metrics 
+		had almost exactly the same patterns of variation.
+		
+		We also calculated the larger windown sizes for sub-metrics a) and b), which are N=5, N=7.
+		The scripts are shown in 
+		
+		
 
 
 ### **3.2  Average Commit Size**
+
 
 
 
