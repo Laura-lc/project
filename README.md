@@ -1,24 +1,24 @@
 # Description
 
-## **1. Data**
+## **1.  Data**
 
-1) Cloned the selected GitHub projects:
+1.1  Cloned the selected GitHub projects:
 
 	*git clone*
 
-2) Extracted commit comments (both tittles and bodies) of the selected projects:
+1.2  Extracted commit comments (both tittles and bodies) of the selected projects:
 
 	*git log --after="2020-02-20" --before="2020-08-20" --pretty=format:"CommitHash: %H AuthorDate: %ai CommitterDate: %ci SubjectTitleLine: %s BodyMessage: %b" > fullCommitMessages.txt*
 
-3) Extracted code logs of the selected projects:
+1.3  Extracted code logs of the selected projects:
 
 	*git log -p --reverse --after="2020-02-20" --before="2020-08-20"> "$patch_output_path/${arr[-1]}.txt"*
 
 
 
-## **2. Calculating Comment Quality Metrics**
+## **2.  Calculating Comment Quality Metrics**
 
-### **2.1 Expressiveness of Comment Titles**
+### **2.1  Expressiveness of Comment Titles**
 
 	There are five main steps in our process for calculating the expressiveness of the comment titles: 
 	
@@ -32,7 +32,7 @@
 	
 	5) building a decision tree to measure the expressiveness. 
 
-- **2.1.1 Human Judges**
+- **2.1.1  Human Judges**
 
 		To measure the expressiveness of the comment titles, we used human expertise. To do this, 
 		we extracted 400 comment titles from the project data set. Then we asked three software 
@@ -49,7 +49,7 @@
 		0 means the comment is useless;
 		NR means Not Rated;
 	
-- **2.1.2 Inter-rater Agreement (IRA)**
+- **2.1.2  Inter-rater Agreement (IRA)**
 
 		Once we had the rated comment titles from all three raters, we scored the agreement 
 		score manually as follow: 
@@ -65,16 +65,20 @@
 		the shared comment titles. We calculated the Inter-rater Agreement (IRA) both including 
 		and excluding the comment titles marked as 0. 
 
-- **2.1.3 Extracting Comment Features for Each Category**
+- **2.1.3  Extracting Comment Features for Each Category**
 	
 		We examined the comment titles that received identical ratings from at least two judges.
 
 		We defined the following set of dimensions or features for classifying comment expressiveness:
 		
 		1) comment length;
+		
 		2) number of instances of function/file/variable/constant, etc.
+		
 		3) whether comment contains bug number;
+		
 		4) whether the comment is for a merge commit;
+		
 		5) whether the comment contains some special phrases, 
 		   for example, “instead of”, “so that”, “for example”, “when”, “where”, etc.
 
@@ -82,7 +86,7 @@
 		After extracting features for the comment titles, we coded each comment 
 		title according to above dimensions.
 
-- **2.1.4 Name entity replacement**
+- **2.1.4  Name entity replacement**
 
 		We observed that many of the comments, both comment title and comment body, 
 		include technical terms and project specific names of variables, function, 
@@ -96,27 +100,25 @@
 		The function names and variable names replacement scripts for each programming 
 		group are shown in the following files:
 
-			a) FunVarReplacementForPython.ipynb
-			b) FunVarReplacementForC.ipynb
-			c) FunVarReplacementForJavaScript.ipynb
-			d) FunVarReplacementForJava.ipynb
+			FunVarReplacementForPython.ipynb,  FunVarReplacementForC.ipynb
+			FunVarReplacementForJavaScript.ipynb,  FunVarReplacementForJava.ipynb
 
 		The file names, constant names and bug numbers replacement scripts for all projects 
 		(all four programming language projects) are shown in the following files:
 
-			a) replaceFileNames.ipynb
-			b) replaceConstants.ipynb
-			c) replaceBugNumbers.ipynb
+			replaceFileNames.ipynb,  replaceConstants.ipynb,  replaceBugNumbers.ipynb
 
 		To do the name entity replacement for each language group, the order to run the scripts 
 		should be: FunVarReplacement – replaceFileNames – replaceConstants – replaceBugNumbers
 
-- **2.1.5 Decision tree**
+- **2.1.5  Decision tree**
 
 		After running our feature extraction scripts, we had a set of features along with 
-		their features dimension values. We separated the data into a training set versus 
-		a testing set and used the training set to train a decision tree classifier using 
-		sklearn module with entropy as splitting criterion.  
+		their features dimension values. 
+		
+		We separated the data into a training set versus a testing set and used the training 
+		set to train a decision tree classifier using sklearn module with entropy as splitting 
+		criterion.  
 		
 		The scripts for building the decision tree is shown in buildingDecisionTree.ipynb
 		
@@ -129,7 +131,7 @@
 
 
 
-### **2.2 Length of Comment Titles**
+### **2.2  Length of Comment Titles**
 
 		We counted the total number of words as the length of each comment title 
 		and removed the punctuation but kept the stop words for each comment title. 
@@ -141,15 +143,15 @@
 		The scripts for calculating the comment length is shown in commentLength.ipynb
 
 
-### **2.3 Uniqueness of Comment Titles**
+### **2.3  Uniqueness of Comment Titles**
 
 		We measured precentage of unique commit comment by defining the ratio of number 
-		of unique commits to the total number of commits for each project.we exclude the stop words.
+		of unique commits to the total number of commits for each project.we excluded the stop words.
 		
 		The scripts for calculating the comment uniqueness is shown in commentUniqueness.ipynb
 
 
-### **2.4 Percentage of Commits with Body**
+### **2.4  Percentage of Commits with Body**
 
 		We simply counted the number of commit comments with a body for each project 
 		and divided it by the total number of commits.
@@ -160,12 +162,12 @@
 		removing the empty lines and useless spaces, etc. 
 		
 		This is to make it easier to calculate this metric and also the word frequency metrics. 
-		The scripts used to format/clean the comment bodies is shown the formatCommentBodies.ipynb		
+		The scripts used to format the comment bodies is shown the formatCommentBodies.ipynb		
 		
 		Finally, we calculated this metric using script commentUniqueness.ipynb
 
 
-### **2.5 Word Frequency Rank of Comments**
+### **2.5  Word Frequency Rank of Comments**
 
 		In this metric, we used the comments that have been formatted/cleaned 
 		by using formatCommentBodies.ipynb 
@@ -176,11 +178,11 @@
 		
 		we referred to a word frequency corpus, which is derived from Google’s N-gram corpus.
 		
-		a) First, we sorted all the words in the corpus by their frequency, 
+		a)   First, we sorted all the words in the corpus by their frequency, 
 		in descending order by frequency. This is done using scripts in 
 		WFpart1_sortCorpusByWordFrequency.ipynb;
 		
-		b) Second, since there are many other informations in the code logs 
+		b)   Second, since there are many other informations in the code logs 
 		we have extracted, for example the author and date, etc. Now we just wanted the 
 		comment tiles and the comment bodies only, so, we extracted the comment tiles 
 		and the comment titles plus bodies for each project. 
@@ -188,7 +190,7 @@
 		This is just to make the later calculation easier and cleaner. This step was 
 		done in WFpart2_storeTitlesAndBodies.ipynb
 		
-		c) After we have extracted the comment tiles and the comment titles plus bodies 
+		c)   After we have extracted the comment tiles and the comment titles plus bodies 
 		for each project, we found out the English words that not in the corpus, then we 
 		went through the word list and did some manual replacement for the following cases:
 
@@ -210,7 +212,7 @@
 			accomodations : accommodations
 		
 		
-		d) After the manual replacement, we calculated the average word frequency rank 
+		d)   After the manual replacement, we calculated the average word frequency rank 
 		for both comment titles and comment titles plus bodies. The replaced words were 
 		searched in the corpus.
 		
@@ -220,9 +222,9 @@
 
 
 
-## **3. Code Quality Metrics**
+## **3.  Code Quality Metrics**
 
-### **3.1 Thrashing Frequency**
+### **3.1  Thrashing Frequency**
 
 		We considered the following three cases as thrashing:
 		
@@ -239,15 +241,15 @@
 
 
 
-### **3.2 Average Commit Size**
+### **3.2  Average Commit Size**
 
 
 
-### **3.3 Percentage of Risky Commits**
+### **3.3  Percentage of Risky Commits**
 
 
 
-### **3.4 Distribution of Modified Code**
+### **3.4  Distribution of Modified Code**
 
 
 
