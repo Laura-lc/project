@@ -21,10 +21,15 @@
 ### **2.1 Expressiveness of Comment Titles**
 
 	There are five main steps in our process for calculating the expressiveness of the comment titles: 
+	
 	1) rating of a sample by human judges; 
+	
 	2) calculating inter-rater agreement; 
+	
 	3) extracting comment features for different expressiveness categories; 
+	
 	4) replacing name entities of the comment titles; 
+	
 	5) building a decision tree to measure the expressiveness. 
 
 - **2.1.1 Human Judges**
@@ -50,8 +55,10 @@
 		score manually as follow: 
 		
 		a) If the comment title had the same rating from both raters, we marked it 1.0; 
+		
 		b) If the comment title had no more than one category difference, we marked it 0.5; 
 		   For instance, if one rater gave the comment title a score of 3 and the other rater gave 2; 
+		   
 		3) Otherwise, we marked it 0.0 (call these the disagreed comment title).
 
 		For each pair of raters, the IRA is calculated as the average agreement score over all 
@@ -63,6 +70,7 @@
 		We examined the comment titles that received identical ratings from at least two judges.
 
 		We defined the following set of dimensions or features for classifying comment expressiveness:
+		
 		1) comment length;
 		2) number of instances of function/file/variable/constant, etc.
 		3) whether comment contains bug number;
@@ -115,6 +123,7 @@
 		Once we had the decision tree, we applied the feature extraction script to all 
 		the comment titles of our projects to acquire the features, then turned the 
 		features into dimensions values for each comment title of each project. 
+		
 		Finally, we used the decision tree to categorize each of the comment 
 		titles from the project and get back a category from 1 to 3. 
 
@@ -124,10 +133,10 @@
 
 		We counted the total number of words as the length of each comment title 
 		and removed the punctuation but kept the stop words for each comment title. 
-		We examined the standard deviation (SD) of comment length, as well as the average, 
-		to avoid inflation by a few outliers. For the projects that had excessive SD 
-		(greater than 5.0), we removed the top 10% and bottom 10% (in length) of the 
-		comment titles in those projects, and then recalculated the mean of the lengths. 
+		
+		For the projects that had excessive SD (greater than 5.0), we removed the top 
+		10% and bottom 10% (in length) of the comment titles in those projects, and 
+		then recalculated the mean of the lengths. 
 		
 		The scripts for calculating the comment length is shown in commentLength.ipynb
 
@@ -148,9 +157,10 @@
 		Since the logs we extracted from GitHub have some build-in format, 
 		expecially for the comment bodies, So, before checking if the commit 
 		contains a body message, we first format the comment bodies, for example, 
-		removing the empty lines and useless spaces, etc. This is to make it easier 
-		to calculate this metric and also the word frequency metrics. The scripts used 
-		to format/clean the comment bodies is shown the formatCommentBodies.ipynb		
+		removing the empty lines and useless spaces, etc. 
+		
+		This is to make it easier to calculate this metric and also the word frequency metrics. 
+		The scripts used to format/clean the comment bodies is shown the formatCommentBodies.ipynb		
 		
 		Finally, we calculated this metric using script commentUniqueness.ipynb
 
@@ -171,21 +181,24 @@
 		WFpart1_sortCorpusByWordFrequency.ipynb;
 		
 		b) Second, since there are many other informations in the code logs 
-		we have extracted, for example the author and date, etc. We now just 
-		want the comment tiles and the comment bodies only, so, we extract the
-		the comment tiles and the comment titles plus bodies for each project. 
-		This is just to make the later calculation easier and cleaner. 
-		This step was done in WFpart2_storeTitlesAndBodies.ipynb
+		we have extracted, for example the author and date, etc. Now we just wanted the 
+		comment tiles and the comment bodies only, so, we extracted the comment tiles 
+		and the comment titles plus bodies for each project. 
 		
-		c) After we have extracted the comment tiles and the comment titles 
-		plus bodies for each project, we found out the English words that now 
-		in the corpus, then we went through the word list and did some manual 
-		replacement for the following cases:
+		This is just to make the later calculation easier and cleaner. This step was 
+		done in WFpart2_storeTitlesAndBodies.ipynb
+		
+		c) After we have extracted the comment tiles and the comment titles plus bodies 
+		for each project, we found out the English words that not in the corpus, then we 
+		went through the word list and did some manual replacement for the following cases:
 
 			-  clearly misspelled words;
+			
 			-  derived words, in which case we manually replaced with their "stems", 
 			   for instance, plurals, verb forms other than the present, etc.;
+			   
 			-  very common abbreviations e.g. “mgmt.” will be replaced by “management”; 
+			
 			-  words that look like phrases that are missing spaces. such as "quickfix" 
 			   will be changed to “quick fix”.
 
@@ -220,6 +233,9 @@
 		After the code diff for each project is extracted, the sub-metric a) and b) are calculated 
 		using script thrashingFrequencySubMetricab.ipynb, sub-metric c) is calculated using script 
 		thrashingFrequencySubMetricc.ipynb.
+
+
+
 
 
 
