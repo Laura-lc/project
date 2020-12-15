@@ -252,18 +252,21 @@
 
 ### **3.1  Thrashing Frequency**
 		
-		We first analyzed the patch output to create a diff output file for each project for later thrashing 
-		frequency calculation. The purpose of this step is to remove the unnecessary information and 
-		transform all lines into a "canonical" form by removing tabs and spaces and converting everything 
-		to lower case, hence, making the diff file more clear and easier to analyze. This was done with the 
-		script TF_cleaningPatch.ipynb
+		We first analyzed the patch output to create a diff output file for each project.
+			- removed the unnecessary information
+			- transformed all lines into a "canonical" form by removing tabs and spaces 
+			- converted everything to lower case
 		
-		Then we analyzed the code diffs in a moving time window N, and considered the following three cases 
-		as thrashing:
+		Purpose: making the diff file more clear and easier to analyze. 				
+		This was done by using the script TF_cleaningPatch.ipynb
 		
-			1)	Line removed then added back within N successive commits;
-			2)	Line added then removed within N successive commits;
-			3)	Repeated modifications to the same region of code within N successive commits;
+		
+		Next, we analyzed the code diffs in a moving time window N, and considered the 
+		following three cases as thrashing:
+		
+			a)	Line removed then added back within N successive commits;
+			b)	Line added then removed within N successive commits;
+			c)	Repeated modifications to the same region of code within N successive commits;
 		
 		For sub-metric a) and b), 
 		
@@ -283,13 +286,13 @@
 
 			- the scripts are available in thrashingFrequencySubMetricc.ipynb, with N = 3.
 
-		The three submetrics were calculated separately. For each project, we calculated normalized 
-		the trashing metrics by calculating a ratio between the number of thrashing events and the 
+		The three submetrics were calculated separately. We calculated normalized the trashing 
+		metrics by calculating a ratio between the number of thrashing events and the 
 		number of commits. A ceiling value of 1.0 was applied to the normalized sub-metric.
 		
 		We dropped the sub-metric c), because this measure had very little variability across projects.
-		We combined sub-metrics a) and b) by averaging the normalized values, because the two sub-metrics 
-		had almost exactly the same patterns of variation.
+		We combined sub-metrics a) and b) by averaging the normalized values, because the two 
+		sub-metrics had almost exactly the same patterns of variation.
 		
 		We also calculated the larger windown sizes for sub-metrics a) and b), which are N=5, N=7.
 		The scripts are shown in TF5.ipynb and TF7.ipynb. 
