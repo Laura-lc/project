@@ -4,15 +4,15 @@
 
 1.1  Cloned the selected GitHub projects:
 
-	*git clone*
+	git clone
 
 1.2  Extracted commit comments (both tittles and bodies) of the selected projects:
 
-	*git log --after="2020-02-20" --before="2020-08-20" --pretty=format:"CommitHash: %H AuthorDate: %ai CommitterDate: %ci SubjectTitleLine: %s BodyMessage: %b" > fullCommitMessages.txt*
+	git log --after="2020-02-20" --before="2020-08-20" --pretty=format:"CommitHash: %H AuthorDate: %ai CommitterDate: %ci SubjectTitleLine: %s BodyMessage: %b" > fullCommitMessages.txt
 
 1.3  Extracted code logs of the selected projects:
 
-	*git log -p --reverse --after="2020-02-20" --before="2020-08-20"> "$patch_output_path/${arr[-1]}.txt"*
+	git log -p --reverse --after="2020-02-20" --before="2020-08-20"> "$patch_output_path/${arr[-1]}.txt"
 
 
 
