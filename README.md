@@ -170,9 +170,9 @@
 ### **2.5  Word Frequency Rank of Comments**
 
 		In this metric, we used the comments that have been formatted/cleaned 
-		by using formatCommentBodies.ipynb 
+		by using formatCommentBodies.ipynb when we measured the percentage of 
+		commits with body metric above. 
 		
-		when we measured the percentage of commits with body metric above. 
 		We measure the word frequency rank for both comment tiles and comment 
 		tiles plus bodies. That is, we have two word frequency rank metrics here.
 		
