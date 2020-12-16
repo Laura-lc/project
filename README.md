@@ -184,21 +184,19 @@
 		http://storage.googleapis.com/books/ngrams/books/datasetsv2.html
 		https://raw.githubusercontent.com/earonesty/dotfiles/master/frequent.js
 		
-		a)   First, we sorted all the words in the corpus by their frequency, 
-		in descending order by frequency. This is done using scripts in 
-		WFpart1_sortCorpusByWordFrequency.ipynb;
+		a)   First, we sorted all the words in the corpus by their frequency, in descending order 
+		     by frequency. This was done using scripts in WFpart1_sortCorpusByWordFrequency.ipynb;
 		
 		b)   Second, since there are many other informations in the code logs 
-		we have extracted, for example the author and date, etc. Now we just wanted the 
-		comment tiles and the comment bodies only, so, we extracted the comment tiles 
-		and the comment titles plus bodies for each project. 
+		     we have extracted, for example the author and date, etc. Now we just wanted the 
+		     comment tiles and the comment bodies only, so, we extracted the comment tiles 
+		     and the comment titles plus bodies for each project. 
 		
-		This is just to make the later calculation easier and cleaner. This step was 
-		done in WFpart2_storeTitlesAndBodies.ipynb
+		     This is just to make the later calculation easier and cleaner. This step was 
+		     done in WFpart2_storeTitlesAndBodies.ipynb
 		
-		c)   After we have extracted the comment tiles and the comment titles plus bodies 
-		for each project, we found out the English words that not in the corpus, then we 
-		went through the word list and did some manual replacement for the following cases:
+		c)   Next, we found out the English words that not in the corpus, then we went 
+		     through the word list and did some manual replacement for the following cases:
 
 			-  clearly misspelled words;
 			
@@ -320,6 +318,8 @@
 			SUM(LA) / (#total_commit); 
 			SUM(LD) / (#total_commit); 
 			SUM(NF) / (#total_commit);
+			
+		 The calculation was done by using the script code_averageCommitSize.ipynb
 
 
 
@@ -331,6 +331,8 @@
 		
 		We calculated the percentage of risky commits in a project by dividing the 
 		number of risky commits by the total number of commits within our time range.
+		
+		The calculation was done by using the script code_percentageOfRiskyCommits.ipynb
 
 
 ### **3.4  Distribution of Modified Code**
@@ -341,6 +343,8 @@
 		value for each project as follows:
 		
 		SUM(entropy) / (#total_commit)
+		
+		The calculation was done by using the script code_entropy.ipynb
 		
 		
 
