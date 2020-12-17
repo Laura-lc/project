@@ -1,6 +1,6 @@
 # Description
 
-## **1.  Data**
+# **1.  Data**
 
 1.1  Cloned the selected GitHub projects:
 
@@ -16,11 +16,11 @@
 
 
 
-## **2.  Calculating Comment Quality Metrics**
+# **2.  Calculating Comment Quality Metrics**
 
-### **2.1  Expressiveness of Comment Titles**
+## **2.1  Expressiveness of Comment Titles**
 
-	There are five main steps in our process for calculating the expressiveness of the comment titles: 
+	There are five main steps for calculating the expressiveness of the comment titles: 
 	
 	1) rating of a sample by human judges; 
 	
@@ -30,26 +30,29 @@
 	
 	4) replacing name entities of the comment titles; 
 	
-	5) building a decision tree to measure the expressiveness. 
+	5) building a decision tree to measure the expressiveness;
 
-- **2.1.1  Human Judges**
+### **2.1.1  Human Judges**
 
-		To measure the expressiveness of the comment titles, we used human expertise. To do this, 
-		we extracted 400 comment titles from the project data set. Then we asked three software 
-		experts to rate the expressiveness or usefulness of the selected comment titles.
+	We extracted 400 comment titles from the project data set, and asked three software 
+	experts to rate the expressiveness or usefulness of the selected comment titles.
 
-		Each specific comment title was rated by two different experts. Each comment title had an 
-		integer rating score from 0 to 3. 
-		
-		The 400 rated comment titles are shown in 400RatedCommentTitles.xlsx.
+	Each specific comment title was rated by two different experts. Each comment title had an 
+	integer rating score in the range of 0 to 3. 
 
-		3 means the comment is very useful and informative;
-		2 means the comment is somewhat useful and informative;
-		1 means the comment is slightly useful and informative;
-		0 means the comment is useless;
-		NR means Not Rated;
+	The 400 rated comment titles are shown in 400RatedCommentTitles.xlsx.
+
+	3 means the comment is very useful and informative;
+
+	2 means the comment is somewhat useful and informative;
+
+	1 means the comment is slightly useful and informative;
+
+	0 means the comment is useless;
+
+	NR means Not Rated;
 	
-- **2.1.2  Inter-rater Agreement (IRA)**
+### **2.1.2  Inter-rater Agreement (IRA)**
 
 		Once we had the rated comment titles from all three raters, we scored the agreement 
 		score manually as follow: 
@@ -65,7 +68,7 @@
 		the shared comment titles. We calculated the Inter-rater Agreement (IRA) both including 
 		and excluding the comment titles marked as 0. 
 
-- **2.1.3  Extracting Comment Features for Each Category**
+### **2.1.3  Extracting Comment Features for Each Category**
 	
 		We examined the comment titles that received identical ratings from at least two judges.
 
@@ -86,7 +89,7 @@
 		After extracting features for the comment titles, we coded each comment 
 		title according to above dimensions.
 
-- **2.1.4  Name entity replacement**
+### **2.1.4  Name entity replacement**
 
 		We observed that many of the comments, both comment title and comment body, 
 		include technical terms and project specific names of variables, function, 
@@ -115,7 +118,7 @@
 		To do the name entity replacement for each language group, the order to run the scripts 
 		should be: FunVarReplacement – replaceFileNames – replaceConstants – replaceBugNumbers
 
-- **2.1.5  Decision tree**
+### **2.1.5  Decision tree**
 
 		After running our feature extraction scripts, we had a set of features along with 
 		their features dimension values. 
@@ -135,7 +138,7 @@
 
 
 
-### **2.2  Length of Comment Titles**
+## **2.2  Length of Comment Titles**
 
 		We counted the total number of words as the length of each comment title 
 		and removed the punctuation but kept the stop words for each comment title. 
@@ -147,7 +150,7 @@
 		The scripts for calculating the comment length is shown in commentLength.ipynb
 
 
-### **2.3  Uniqueness of Comment Titles**
+## **2.3  Uniqueness of Comment Titles**
 
 		We measured precentage of unique commit comment by defining the ratio of number 
 		of unique commits to the total number of commits for each project.we excluded the stop words.
@@ -155,7 +158,7 @@
 		The scripts for calculating the comment uniqueness is shown in commentUniqueness.ipynb
 
 
-### **2.4  Percentage of Commits with Body**
+## **2.4  Percentage of Commits with Body**
 
 		We simply counted the number of commit comments with a body for each project 
 		and divided it by the total number of commits.
@@ -171,7 +174,7 @@
 		Finally, we calculated this metric using script commentUniqueness.ipynb
 
 
-### **2.5  Word Frequency Rank of Comments**
+## **2.5  Word Frequency Rank of Comments**
 
 		In this metric, we used the comments that have been formatted/cleaned 
 		by using formatCommentBodies.ipynb when we measured the percentage of 
@@ -225,7 +228,7 @@
 
 
 
-## **3.  Code Quality Metrics**
+# **3.  Code Quality Metrics**
 		
 		We first wrote Python scripts to detect the instances of thrashing, then used an online tool, 
 		CommitGuru (CG), to help to calculate the other three code quality metrics: average commit size, 
@@ -248,7 +251,7 @@
 		Software Engineering, vol. 39, no. 6, pp. 757-773, September 2019.
 
 
-### **3.1  Thrashing Frequency**
+## **3.1  Thrashing Frequency**
 		
 		We first analyzed the patch output to create a diff output file for each project.
 			- removed the unnecessary information
@@ -302,7 +305,7 @@
 		
 
 
-### **3.2  Average Commit Size**
+## **3.2  Average Commit Size**
 
 		we acquired the corresponding metric values for all the commits that made within 
 		our six months’ time frame from the CSV file returned by CG. We used three CG 
@@ -323,7 +326,7 @@
 
 
 
-### **3.3  Percentage of Risky Commits**
+## **3.3  Percentage of Risky Commits**
 
 		The final CG CSV file includes a ‘contains_bug’ column, which holds a value of 
 		“True” or “False” for each commit of the project. “True” means the commit is 
@@ -335,7 +338,7 @@
 		The calculation was done by using the script code_percentageOfRiskyCommits.ipynb
 
 
-### **3.4  Distribution of Modified Code**
+## **3.4  Distribution of Modified Code**
 
 
 		CG refers to this metric as entropy. In the CG CSV file, there is a ‘entropy’ column 
