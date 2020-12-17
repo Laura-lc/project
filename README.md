@@ -100,15 +100,15 @@ to five fixed strings: FILE, VARIABLE, FUNCTION, CONSTANT, and BUG_NUMBER.
 
 The function names and variable names replacement scripts for each programming group are shown in the following files:
 
-	FunVarReplacementForPython.ipynb,  
+	FunVarReplacementForPython.ipynb 
 	FunVarReplacementForC.ipynb
-	FunVarReplacementForJavaScript.ipynb,  
+	FunVarReplacementForJavaScript.ipynb 
 	FunVarReplacementForJava.ipynb
 
 The file names, constant names and bug numbers replacement scripts for all projects (all four programming language projects) are shown in the following files:
 
-	replaceFileNames.ipynb,  
-	replaceConstants.ipynb,  
+	replaceFileNames.ipynb
+	replaceConstants.ipynb 
 	replaceBugNumbers.ipynb
 
 To do the name entity replacement for each language group, the order to run the scripts should be: 
@@ -187,7 +187,9 @@ We referred to a word frequency corpus, someone derived it from Google’s N-gra
      comment tiles and the comment bodies only, so, we extracted the comment tiles 
      and the comment titles plus bodies for each project. 
 
-     This is just to make the later calculation easier and cleaner. This step was done in WFpart2_storeTitlesAndBodies.ipynb
+     This is just to make the later calculation easier and cleaner. 
+     
+     This step was done in WFpart2_storeTitlesAndBodies.ipynb
 
 -  Next, we found out the English words that not in the corpus (using script WFpart3_findWordsNotInCorpus.ipynb), then we went 
      through those words and did some manual replacement for the following cases:
@@ -236,11 +238,16 @@ Software Engineering, vol. 39, no. 6, pp. 757-773, September 2019.*
 ## **3.1  Thrashing Frequency**
 		
 First, we analyzed the patch output to create a diff output file for each project:
-	1)removed the unnecessary information;
-	2)transformed all lines into a "canonical" form by removing tabs and spaces;
-	3)converted everything to lower case;
 
-Purpose: making the diff file more clear and easier to analyze. This was done by using the script TF_cleaningPatch.ipynb
+	1) removed the unnecessary information;
+	
+	2) transformed all lines into a "canonical" form by removing tabs and spaces;
+	
+	3) converted everything to lower case;
+
+Purpose: making the diff file more clear and easier to analyze. 
+
+This was done by using the script TF_cleaningPatch.ipynb
 
 
 Next, we analyzed the code diffs in a moving time window N, and considered the following three cases as thrashing:
@@ -285,15 +292,15 @@ There were not much different between the scripts, just need to change the N siz
 we acquired the corresponding metric values for all the commits that made within 
 our six months’ time frame from the CSV file returned by CG. We used three CG metrics which reflect the size of a commit: 
 
-	lines of code added (LA), 
-	lines of code deleted (LD), 
-	and the number of modified files (NF),
+	lines of code added (LA)
+	lines of code deleted (LD)
+	the number of modified files (NF)
 
 These three measures were used as separate indicators of commit size. We calculated the mean values for each project as follows；
 
-	SUM(LA) / (#total_commit); 
-	SUM(LD) / (#total_commit); 
-	SUM(NF) / (#total_commit);
+	SUM(LA) / (#total_commit)
+	SUM(LD) / (#total_commit)
+	SUM(NF) / (#total_commit)
 
  The calculation was done by using script code_averageCommitSize.ipynb
 
