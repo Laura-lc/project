@@ -34,23 +34,23 @@
 
 ### **2.1.1  Human Judges**
 
-	We extracted 400 comment titles from the project data set, and asked three software 
-	experts to rate the expressiveness or usefulness of the selected comment titles.
+We extracted 400 comment titles from the project data set, and asked three software 
+experts to rate the expressiveness or usefulness of the selected comment titles.
 
-	Each specific comment title was rated by two different experts. Each comment title had an 
-	integer rating score in the range of 0 to 3. 
+Each specific comment title was rated by two different experts. Each comment title had an 
+integer rating score in the range of 0 to 3. 
 
-	The 400 rated comment titles are shown in 400RatedCommentTitles.xlsx.
+The 400 rated comment titles are shown in 400RatedCommentTitles.xlsx.
 
-	3 means the comment is very useful and informative;
+- 3 means the comment is very useful and informative;
 
-	2 means the comment is somewhat useful and informative;
+- 2 means the comment is somewhat useful and informative;
 
-	1 means the comment is slightly useful and informative;
+- 1 means the comment is slightly useful and informative;
 
-	0 means the comment is useless;
+- 0 means the comment is useless;
 
-	NR means Not Rated;
+- NR means Not Rated;
 	
 ### **2.1.2  Inter-rater Agreement (IRA)**
 
