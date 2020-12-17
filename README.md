@@ -212,12 +212,12 @@ We referred to a word frequency corpus, someone derived it from Google’s N-gra
 		d)  words that look like phrases that are missing spaces. such as "quickfix" 
 		   will be changed to “quick fix”.
 
-This step was done with the script WFpart3_findWordsNotInCorpus.ipynb. 
-The "words" that have been replaced (used to search in the corpus later) were stored in the txt file in the following format:
+	This step was done with the script WFpart3_findWordsNotInCorpus.ipynb. 
+	The "words" that have been replaced (used to search in the corpus later) were stored in the txt file in the following format:
 
-	[the original word] : [the replaced word]
-	accomodate : accommodate
-	accomodations : accommodations
+		[the original word] : [the replaced word]
+		accomodate : accommodate
+		accomodations : accommodations
 
 
 -  Finally, we calculated the average word frequency rank for both comment titles and comment titles plus bodies. The calculation was done with the scripts WFpart4_wordFrequencyRankCalculation.ipynb
