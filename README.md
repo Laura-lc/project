@@ -124,126 +124,122 @@ their features dimension values.
 set to train a decision tree classifier using sklearn module with entropy as splitting 
 criterion. The scripts for building the decision tree is shown in buildingDecisionTree.ipynb
 
+- combined the categories 0 and 1 to acquire higher overall accuracy of the decision tree;
+
 - then, applied the feature extraction script to all 
 the comment titles of our projects to acquire the features, then turned the 
-features into dimensions values for each comment title of each project. 
+features into dimensions values for each comment title of each project;
 
 - finally, used the decision tree to categorize each of the comment titles from 
-the project and get back a category from 1 to 3. 
+the project and get back a category from 1 to 3;
 
 
 
 ## **2.2  Length of Comment Titles**
 
-		We counted the total number of words as the length of each comment title 
-		and removed the punctuation but kept the stop words for each comment title. 
-		
-		For the projects that had excessive SD (greater than 5.0), we removed the top 
-		10% and bottom 10% (in length) of the comment titles in those projects, and 
-		then recalculated the mean of the lengths. 
-		
-		The scripts for calculating the comment length is shown in commentLength.ipynb
+We counted the total number of words as the length of each comment title 
+and removed the punctuation but kept the stop words for each comment title. 
+
+For the projects that had excessive SD (greater than 5.0), we removed the top 
+10% and bottom 10% (in length) of the comment titles in those projects, and 
+then recalculated the mean of the lengths. 
+
+The scripts for calculating the comment length is shown in commentLength.ipynb
 
 
 ## **2.3  Uniqueness of Comment Titles**
 
-		We measured precentage of unique commit comment by defining the ratio of number 
-		of unique commits to the total number of commits for each project.we excluded the stop words.
-		
-		The scripts for calculating the comment uniqueness is shown in commentUniqueness.ipynb
+We measured precentage of unique commit comment by defining the ratio of number 
+of unique commits to the total number of commits for each project.we excluded the stop words.
+
+The scripts for calculating the comment uniqueness is shown in commentUniqueness.ipynb
 
 
 ## **2.4  Percentage of Commits with Body**
 
-		We simply counted the number of commit comments with a body for each project 
-		and divided it by the total number of commits.
-		
-		Since the logs we extracted from GitHub have some build-in format, expecially 
-		for the comment bodies, So, before checking if the commit contains a body message,
-		we first format the comment bodies, for example, removing the empty lines and 
-		useless spaces, etc. 
-		
-		This is to make it easier to calculate this metric and also the word frequency metrics. 
-		The scripts used to format the comment bodies is shown the formatCommentBodies.ipynb		
-		
-		Finally, we calculated this metric using script commentUniqueness.ipynb
+We simply counted the number of commit comments with a body for each project 
+and divided it by the total number of commits.
+
+Since the logs we extracted from GitHub have some build-in format, expecially 
+for the comment bodies, So, metric calculation, we first format the comment bodies, for example, removing the empty lines and 
+useless spaces, etc. 
+
+Purpose: make it easier to calculate this metric and also the word frequency metrics. 
+We used script formatCommentBodies.ipynb to format the comment bodies.
+
+Finally, we calculated this metric using script commentUniqueness.ipynb
 
 
 ## **2.5  Word Frequency Rank of Comments**
 
-		In this metric, we used the comments that have been formatted/cleaned 
-		by using formatCommentBodies.ipynb when we measured the percentage of 
-		commits with body metric above. 
-		
-		We measure the word frequency rank for both comment tiles and comment 
-		tiles plus bodies. That is, we have two word frequency rank metrics here.
-		
-		We referred to a word frequency corpus, someone derived it from Google’s N-gram corpus.
-		http://storage.googleapis.com/books/ngrams/books/datasetsv2.html
-		https://raw.githubusercontent.com/earonesty/dotfiles/master/frequent.js
-		
-		a)   First, we sorted all the words in the corpus by their frequency, in descending order 
-		     by frequency. This was done using scripts in WFpart1_sortCorpusByWordFrequency.ipynb;
-		
-		b)   Second, since there are many other informations in the code logs 
-		     we have extracted, for example the author and date, etc. Now we just wanted the 
-		     comment tiles and the comment bodies only, so, we extracted the comment tiles 
-		     and the comment titles plus bodies for each project. 
-		
-		     This is just to make the later calculation easier and cleaner. This step was 
-		     done in WFpart2_storeTitlesAndBodies.ipynb
-		
-		c)   Next, we found out the English words that not in the corpus, then we went 
-		     through the word list and did some manual replacement for the following cases:
+In this metric, we used the comments that have been formatted
+by using formatCommentBodies.ipynb above.
 
-			-  clearly misspelled words;
-			
-			-  derived words, in which case we manually replaced with their "stems", 
-			   for instance, plurals, verb forms other than the present, etc.;
-			   
-			-  very common abbreviations e.g. “mgmt.” will be replaced by “management”; 
-			
-			-  words that look like phrases that are missing spaces. such as "quickfix" 
-			   will be changed to “quick fix”.
+We measure the word frequency rank for both comment tiles and comment 
+tiles plus bodies. That is, we have two word frequency rank metrics here.
 
-		This step was done with the script WFpart3_findWordsNotInCorpus.ipynb. 
-		The "words" that have been replaced were stored in the txt file in the following format:
-		
-			[the original word] : [the replaced word]
-			accomodate : accommodate
-			accomodations : accommodations
-		
-		
-		d)   After the manual replacement, we calculated the average word frequency rank 
-		for both comment titles and comment titles plus bodies. The replaced words were 
-		searched in the corpus.
-		
-		The calculation was done with the scripts WFpart4_wordFrequencyRankCalculation.ipynb
+We referred to a word frequency corpus, someone derived it from Google’s N-gram corpus.
+
+*http://storage.googleapis.com/books/ngrams/books/datasetsv2.html*
+*https://raw.githubusercontent.com/earonesty/dotfiles/master/frequent.js*
+
+-  First, we sorted all the words in the corpus in descending order 
+     by frequency. This was done using scripts in WFpart1_sortCorpusByWordFrequency.ipynb;
+
+-  Second, since there are many other informations in the code logs, for example the author and date, etc. Now we just wanted the 
+     comment tiles and the comment bodies only, so, we extracted the comment tiles 
+     and the comment titles plus bodies for each project. 
+
+     This is just to make the later calculation easier and cleaner. This step was 
+     done in WFpart2_storeTitlesAndBodies.ipynb
+
+-  Next, we found out the English words that not in the corpus, then we went 
+     through the word list and did some manual replacement for the following cases:
+
+	a)  clearly misspelled words;
+
+	b)  derived words, in which case we manually replaced with their "stems", 
+	   for instance, plurals, verb forms other than the present, etc.;
+
+	c)  very common abbreviations e.g. “mgmt.” will be replaced by “management”; 
+
+	d)  words that look like phrases that are missing spaces. such as "quickfix" 
+	   will be changed to “quick fix”.
+
+This step was done with the script WFpart3_findWordsNotInCorpus.ipynb. 
+The "words" that have been replaced (used to search in the corpus later) were stored in the txt file in the following format:
+
+	[the original word] : [the replaced word]
+	accomodate : accommodate
+	accomodations : accommodations
+
+
+-  Finally, we calculated the average word frequency rank 
+for both comment titles and comment titles plus bodies.
+
+The calculation was done with the scripts WFpart4_wordFrequencyRankCalculation.ipynb
 
 
 
 
 # **3.  Code Quality Metrics**
 		
-		We first wrote Python scripts to detect the instances of thrashing, then used an online tool, 
-		CommitGuru (CG), to help to calculate the other three code quality metrics: average commit size, 
-		percentage of risky commits, and distribution of modified code.
-		
-		To calculate metrics with CG, you must provide the Git repository URL. Then CG will start 
-		processing the repository. When CG has finished processing a repository, a CSV file containing 
-		all of the commits for the entire project life cycle and a set of CG metrics values for each 
-		commit will be returned. 
-		
-		The CommitGuru tool is available on: http://commit.guru/
-		
-		Their papers have detailed descriptions on CG tool.
-		
-		[1] C. Rosen, B. Grawi, and E. Shihab, "Commit guru: analytics and risk prediction of software 
-		commits. " In Proceedings of the 2015 10th Joint Meeting on Foundations of Software Engineering, 
-		New York, pp. 966-969. 2015.
-		[2] Y. Kamei, E. Shihab, B. Adams, A. E. Hassan, A. Mockus, A. Sinha, and N. Ubayashi, 
-		“A large-scale empirical study of Just-in-time quality assurance”, IEEE Transactions on 
-		Software Engineering, vol. 39, no. 6, pp. 757-773, September 2019.
+We first wrote Python scripts to detect the instances of thrashing, then used an online tool, 
+CommitGuru (CG), to help to calculate the other three code quality metrics: average commit size, 
+percentage of risky commits, and distribution of modified code.
+
+To calculate metrics with CG, you must provide the Git repository URL. Then CG will start 
+processing the repository. When CG has finished processing a repository, a CSV file containing 
+all of the commits for the entire project life cycle and a set of CG metrics values for each 
+commit will be returned. 
+
+The CommitGuru tool is available on: *http://commit.guru/*
+
+Their papers have detailed descriptions on CG tool.
+
+*[1] C. Rosen, B. Grawi, and E. Shihab, "Commit guru: analytics and risk prediction of software commits. " In Proceedings of the 2015 10th Joint Meeting on Foundations of Software Engineering,New York, pp. 966-969. 2015.*
+*[2] Y. Kamei, E. Shihab, B. Adams, A. E. Hassan, A. Mockus, A. Sinha, and N. Ubayashi, “A large-scale empirical study of Just-in-time quality assurance”, IEEE Transactions on 
+Software Engineering, vol. 39, no. 6, pp. 757-773, September 2019.*
 
 
 ## **3.1  Thrashing Frequency**
