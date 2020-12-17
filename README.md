@@ -20,17 +20,17 @@
 
 ## **2.1  Expressiveness of Comment Titles**
 
-	There are five main steps for calculating the expressiveness of the comment titles: 
-	
-	1) rating of a sample by human judges; 
-	
-	2) calculating inter-rater agreement; 
-	
-	3) extracting comment features for different expressiveness categories; 
-	
-	4) replacing name entities of the comment titles; 
-	
-	5) building a decision tree to measure the expressiveness;
+There are five main steps for calculating the expressiveness of the comment titles: 
+
+- rating of a sample by human judges; 
+
+- calculating inter-rater agreement; 
+
+- extracting comment features for different expressiveness categories; 
+
+- replacing name entities of the comment titles; 
+
+- building a decision tree to measure the expressiveness;
 
 ### **2.1.1  Human Judges**
 
@@ -54,87 +54,82 @@ The 400 rated comment titles are shown in 400RatedCommentTitles.xlsx.
 	
 ### **2.1.2  Inter-rater Agreement (IRA)**
 
-		Once we had the rated comment titles from all three raters, we scored the agreement 
-		score manually as follow: 
-		
-		a) If the comment title had the same rating from both raters, we marked it 1.0; 
-		
-		b) If the comment title had no more than one category difference, we marked it 0.5; 
-		   For instance, if one rater gave the comment title a score of 3 and the other rater gave 2; 
-		   
-		c) Otherwise, we marked it 0.0 (call these the disagreed comment title).
+Next, we scored the agreement score for the rated comment titles manually as follow: 
 
-		For each pair of raters, the IRA is calculated as the average agreement score over all 
-		the shared comment titles. We calculated the Inter-rater Agreement (IRA) both including 
-		and excluding the comment titles marked as 0. 
+* If the comment title had the same rating from both raters, we marked it 1.0; 
+
+* If the comment title had no more than one category difference, we marked it 0.5; 
+   For instance, if one rater gave the comment title a score of 3 and the other rater gave 2; 
+
+* Otherwise, we marked it 0.0 (call these the disagreed comment title).
+
+For each pair of raters, the IRA is calculated as the average agreement score over all 
+the shared comment titles. We calculated the Inter-rater Agreement (IRA) both including 
+and excluding the comment titles marked as 0. 
 
 ### **2.1.3  Extracting Comment Features for Each Category**
 	
-		We examined the comment titles that received identical ratings from at least two judges.
+We examined the comment titles that received identical ratings from at least two judges.
 
-		We defined the following set of dimensions or features for classifying comment expressiveness:
-		
-		1) comment length;
-		
-		2) number of instances of function/file/variable/constant, etc.
-		
-		3) whether comment contains bug number;
-		
-		4) whether the comment is for a merge commit;
-		
-		5) whether the comment contains some special phrases, 
-		   for example, “instead of”, “so that”, “for example”, “when”, “where”, etc.
+We defined the following set of dimensions or features for classifying comment expressiveness:
 
-		The scripts for feature extraction is shown in featureExtraction.ipynb. 
-		After extracting features for the comment titles, we coded each comment 
-		title according to above dimensions.
+- comment length;
+
+- number of instances of function/file/variable/constant, etc.
+
+- whether comment contains bug number;
+
+- whether the comment is for a merge commit;
+
+- whether the comment contains some special phrases, 
+   for example, “instead of”, “so that”, “for example”, “when”, “where”, etc.
+
+We used script featureExtraction.ipynb to extract the features. 
+After extracting features for the comment titles, we coded each comment 
+title according to above dimensions.
 
 ### **2.1.4  Name entity replacement**
 
-		We observed that many of the comments, both comment title and comment body, 
-		include technical terms and project specific names of variables, function, 
-		file, constant, class, modules, etc. 
-		
-		Before we extracted the features for all comment titles, We defined five 
-		standard terms: FILE, VARIABLE, FUNCTION, CONSTANT, and BUG_NUMBER, 
-		then we identified the file/function/variable/constant/bug number 
-		from the comments and replaced them with above standard terms respectively.
+Because many of the comments, both comment title and comment body, 
+include technical terms and project specific names of variables, function, 
+file, constant, etc. 
 
-		The function names and variable names replacement scripts for each programming 
-		group are shown in the following files:
+Before extracting the features for all comment titles, we replaced file/function/variable/constant/bug number 
+to five fixed strings: FILE, VARIABLE, FUNCTION, CONSTANT, and BUG_NUMBER,
 
-			FunVarReplacementForPython.ipynb,  
-			FunVarReplacementForC.ipynb
-			FunVarReplacementForJavaScript.ipynb,  
-			FunVarReplacementForJava.ipynb
+The function names and variable names replacement scripts for each programming 
+group are shown in the following files:
 
-		The file names, constant names and bug numbers replacement scripts for all projects 
-		(all four programming language projects) are shown in the following files:
+	FunVarReplacementForPython.ipynb,  
+	FunVarReplacementForC.ipynb
+	FunVarReplacementForJavaScript.ipynb,  
+	FunVarReplacementForJava.ipynb
 
-			replaceFileNames.ipynb,  
-			replaceConstants.ipynb,  
-			replaceBugNumbers.ipynb
+The file names, constant names and bug numbers replacement scripts for all projects 
+(all four programming language projects) are shown in the following files:
 
-		To do the name entity replacement for each language group, the order to run the scripts 
-		should be: FunVarReplacement – replaceFileNames – replaceConstants – replaceBugNumbers
+	replaceFileNames.ipynb,  
+	replaceConstants.ipynb,  
+	replaceBugNumbers.ipynb
+
+To do the name entity replacement for each language group, the order to run the scripts 
+should be: FunVarReplacement – replaceFileNames – replaceConstants – replaceBugNumbers
 
 ### **2.1.5  Decision tree**
 
-		After running our feature extraction scripts, we had a set of features along with 
-		their features dimension values. 
-		
-		We separated the data into a training set versus a testing set and used the training 
-		set to train a decision tree classifier using sklearn module with entropy as splitting 
-		criterion.  
-		
-		The scripts for building the decision tree is shown in buildingDecisionTree.ipynb
-		
-		Once we had the decision tree, we applied the feature extraction script to all 
-		the comment titles of our projects to acquire the features, then turned the 
-		features into dimensions values for each comment title of each project. 
-		
-		Finally, we used the decision tree to categorize each of the comment titles from 
-		the project and get back a category from 1 to 3. 
+After running our feature extraction scripts, we had a set of features along with 
+their features dimension values. 
+
+- first, separated the data into a training set versus a testing set and used the training 
+set to train a decision tree classifier using sklearn module with entropy as splitting 
+criterion. The scripts for building the decision tree is shown in buildingDecisionTree.ipynb
+
+- then, applied the feature extraction script to all 
+the comment titles of our projects to acquire the features, then turned the 
+features into dimensions values for each comment title of each project. 
+
+- finally, used the decision tree to categorize each of the comment titles from 
+the project and get back a category from 1 to 3. 
 
 
 
