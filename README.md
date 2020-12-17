@@ -124,7 +124,7 @@ their features dimension values.
 set to train a decision tree classifier using sklearn module with entropy as splitting 
 criterion. The scripts for building the decision tree is shown in buildingDecisionTree.ipynb
 
-- combined the categories 0 and 1 to acquire higher overall accuracy of the decision tree;
+- next, combined the categories 0 and 1 to acquire higher overall accuracy of the decision tree;
 
 - then, applied the feature extraction script to all 
 the comment titles of our projects to acquire the features, then turned the 
@@ -238,107 +238,105 @@ The CommitGuru tool is available on: *http://commit.guru/*
 Their papers have detailed descriptions on CG tool.
 
 *[1] C. Rosen, B. Grawi, and E. Shihab, "Commit guru: analytics and risk prediction of software commits. " In Proceedings of the 2015 10th Joint Meeting on Foundations of Software Engineering,New York, pp. 966-969. 2015.*
+
 *[2] Y. Kamei, E. Shihab, B. Adams, A. E. Hassan, A. Mockus, A. Sinha, and N. Ubayashi, “A large-scale empirical study of Just-in-time quality assurance”, IEEE Transactions on 
 Software Engineering, vol. 39, no. 6, pp. 757-773, September 2019.*
 
 
 ## **3.1  Thrashing Frequency**
 		
-		We first analyzed the patch output to create a diff output file for each project.
-			- removed the unnecessary information
-			- transformed all lines into a "canonical" form by removing tabs and spaces 
-			- converted everything to lower case
-		
-		Purpose: making the diff file more clear and easier to analyze. 				
-		This was done by using the script TF_cleaningPatch.ipynb
-		
-		
-		Next, we analyzed the code diffs in a moving time window N, and considered the 
-		following three cases as thrashing:
-		
-			a)	Line removed then added back within N successive commits;
-			b)	Line added then removed within N successive commits;
-			c)	Repeated modifications to the same region of code within N successive commits;
-		
-		For sub-metric a) and b), 
-		
-			- matched code lines removed in commit n against lines added in commit n+1 and lines added 
-			in commit n against lines removed in commit n+1. 
+We first analyzed the patch output to create a diff output file for each project.
+	- removed the unnecessary information
+	- transformed all lines into a "canonical" form by removing tabs and spaces 
+	- converted everything to lower case
 
-			- matched code lines removed in commit n against lines added in commit n+2 and lines 
-			added in commit n against lines removed in commit n+2. 
+Purpose: making the diff file more clear and easier to analyze. 				
+This was done by using the script TF_cleaningPatch.ipynb
 
-			- this would be the process if our window was three successive commits. 
-			  The scripts are available in thrashingFrequencySubMetricab.ipynb, with N = 3.
-		
-		For sub-metric c), 
-		
-			- looked at the line number ranges in three successive commits (commit n, commit n+1, 
-			  and commit n+2). If there is 50% overlap or more in these ranges, we say it is an 
-			  evidence of sub-metric c).
 
-			- the scripts are available in thrashingFrequencySubMetricc.ipynb, with N = 3.
+Next, we analyzed the code diffs in a moving time window N, and considered the 
+following three cases as thrashing:
 
-		The three submetrics were calculated separately. We calculated normalized the trashing 
-		metrics by calculating a ratio between the number of thrashing events and the 
-		number of commits. A ceiling value of 1.0 was applied to the normalized sub-metric.
-		
-		We dropped the sub-metric c), because this measure had very little variability across projects.
-		We combined sub-metrics a) and b) by averaging the normalized values, because the two 
-		sub-metrics had almost exactly the same patterns of variation.
-		
-		We also calculated the larger windown sizes for sub-metrics a) and b), which are N=5, N=7.
-		The scripts are shown in TF5.ipynb and TF7.ipynb. 
-		
-		There were not much different between the scripts, just need to change the N size in 
-		the compare_adjacent_commit_list() function.
-		
+	a)	Line removed then added back within N successive commits;
+	b)	Line added then removed within N successive commits;
+	c)	Repeated modifications to the same region of code within N successive commits;
+
+- For sub-metric a) and b) 
+
+	(1) matched code lines removed in commit n against lines added in commit n+1 and lines added 
+	in commit n against lines removed in commit n+1. 
+
+	(2) matched code lines removed in commit n against lines added in commit n+2 and lines 
+	added in commit n against lines removed in commit n+2. 
+
+	(3) this would be the process if our window was three successive commits. The scripts are available in thrashingFrequencySubMetricab.ipynb, with N = 3.
+
+- For sub-metric c)
+
+	(1) looked at the line number ranges in three successive commits (commit n, commit n+1, 
+	  and commit n+2). If there is 50% overlap or more in these ranges, we say it is an 
+	  evidence of sub-metric c).
+
+	(2) the scripts are available in thrashingFrequencySubMetricc.ipynb, with N = 3.
+
+- The three submetrics were calculated separately. We calculated normalized the trashing 
+metrics by calculating a ratio between the number of thrashing events and the 
+number of commits. A ceiling value of 1.0 was applied to the normalized sub-metric.
+
+- We dropped the sub-metric c), because this measure had very little variability across projects.
+We combined sub-metrics a) and b) by averaging the normalized values, because the two 
+sub-metrics had almost exactly the same patterns of variation.
+
+- We also calculated the larger windown sizes for sub-metrics a) and b), which are N=5, N=7.
+The scripts are shown in TF5.ipynb and TF7.ipynb. There were not much different between the scripts, just need to change the N size in 
+the compare_adjacent_commit_list() function.
+
 		
 
 
 ## **3.2  Average Commit Size**
 
-		we acquired the corresponding metric values for all the commits that made within 
-		our six months’ time frame from the CSV file returned by CG. We used three CG 
-		metrics which reflect the size of a commit: 
-		
-			lines of code added (LA), 
-			lines of code deleted (LD), 
-			and the number of modified files (NF),
-		
-		These three measures were used as separate indicators of commit size. We calculated
-		the mean values for each project as follows；
+we acquired the corresponding metric values for all the commits that made within 
+our six months’ time frame from the CSV file returned by CG. We used three CG 
+metrics which reflect the size of a commit: 
 
-			SUM(LA) / (#total_commit); 
-			SUM(LD) / (#total_commit); 
-			SUM(NF) / (#total_commit);
-			
-		 The calculation was done by using the script code_averageCommitSize.ipynb
+	lines of code added (LA), 
+	lines of code deleted (LD), 
+	and the number of modified files (NF),
+
+These three measures were used as separate indicators of commit size. We calculated
+the mean values for each project as follows；
+
+	SUM(LA) / (#total_commit); 
+	SUM(LD) / (#total_commit); 
+	SUM(NF) / (#total_commit);
+
+ The calculation was done by using the script code_averageCommitSize.ipynb
 
 
 
 ## **3.3  Percentage of Risky Commits**
 
-		The final CG CSV file includes a ‘contains_bug’ column, which holds a value of 
-		“True” or “False” for each commit of the project. “True” means the commit is 
-		identified as risky, while “False” means the commit is non-risky. 
-		
-		We calculated the percentage of risky commits in a project by dividing the 
-		number of risky commits by the total number of commits within our time range.
-		
-		The calculation was done by using the script code_percentageOfRiskyCommits.ipynb
+The final CG CSV file includes a ‘contains_bug’ column, which holds a value of 
+“True” or “False” for each commit of the project. “True” means the commit is 
+identified as risky, while “False” means the commit is non-risky. 
+
+We calculated the percentage of risky commits in a project by dividing the 
+number of risky commits by the total number of commits within our time range.
+
+The calculation was done by using the script code_percentageOfRiskyCommits.ipynb
 
 
 ## **3.4  Distribution of Modified Code**
 
 
-		CG refers to this metric as entropy. In the CG CSV file, there is a ‘entropy’ column 
-		which holds an entropy value for each commit of the project. We calculated the mean 
-		value for each project as follows:
-		
-		SUM(entropy) / (#total_commit)
-		
-		The calculation was done by using the script code_entropy.ipynb
+CG refers to this metric as entropy. In the CG CSV file, there is a ‘entropy’ column 
+which holds an entropy value for each commit of the project. We calculated the mean 
+value for each project as follows:
+
+	SUM(entropy) / (#total_commit)
+
+The calculation was done by using the script code_entropy.ipynb
 		
 		
 
