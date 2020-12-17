@@ -253,27 +253,29 @@ This was done by using the script TF_cleaningPatch.ipynb
 Next, we analyzed the code diffs in a moving time window N, and considered the following three cases as thrashing:
 
 	a)	Line removed then added back within N successive commits;
+	
 	b)	Line added then removed within N successive commits;
+	
 	c)	Repeated modifications to the same region of code within N successive commits;
 
 - For sub-metric a) and b) 
 
-		(1) matched code lines removed in commit n against lines added in commit n+1 and lines added 
-		in commit n against lines removed in commit n+1. 
+		1) matched code lines removed in commit n against lines added in commit n+1 and lines added 
+		   in commit n against lines removed in commit n+1;
 
-		(2) matched code lines removed in commit n against lines added in commit n+2 and lines 
-		added in commit n against lines removed in commit n+2. 
+		2) matched code lines removed in commit n against lines added in commit n+2 and lines 
+		   added in commit n against lines removed in commit n+2;
 
-		(3) this would be the process if our window was three successive commits. 
-		    The scripts are available in thrashingFrequencySubMetricab.ipynb, with N = 3.
+		3) this would be the process if our window was three successive commits. 
+		   The scripts are available in thrashingFrequencySubMetricab.ipynb, with N = 3;
 
 - For sub-metric c)
 
-		(1) looked at the line number ranges in three successive commits (commit n, commit n+1, 
-		  and commit n+2). If there is 50% overlap or more in these ranges, we say it is an 
-		  evidence of sub-metric c).
+		1) looked at the line number ranges in three successive commits (commit n, commit n+1, 
+		   and commit n+2). If there is 50% overlap or more in these ranges, we say it is an 
+		   evidence of sub-metric c);
 
-		(2) the scripts are available in thrashingFrequencySubMetricc.ipynb, with N = 3.
+		2) the scripts are available in thrashingFrequencySubMetricc.ipynb, with N = 3;
 
 - The three submetrics were calculated separately. We calculated normalized the trashing 
 metrics by calculating a ratio between the number of thrashing events and the number of commits. A ceiling value of 1.0 was applied to the normalized sub-metric.
